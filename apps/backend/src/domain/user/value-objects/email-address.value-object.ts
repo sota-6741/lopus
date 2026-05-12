@@ -1,4 +1,4 @@
-import { ValidationDomainException } from "../../shared/domainException";
+import { ValidationDomainException } from "../../shared/domain.exception";
 
 export class EmailAddress {
   private static readonly REGEX =
@@ -8,7 +8,7 @@ export class EmailAddress {
 
   constructor(value: string) {
     if (!EmailAddress.REGEX.test(value)) {
-      throw new ValidationDomainException("Invalid email format");
+      throw new ValidationDomainException("メールアドレスの形式が正しくありません");
     }
     this._value = value;
   }
