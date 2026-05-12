@@ -9,14 +9,12 @@ rectangle "大学集約" <<Aggregate>> #f9f9f9 {
   }
 }
 
-rectangle "アカウント集約" <<Aggregate>> #f9f9f9 {
-  class "アカウント (Account)" as Acc {
+rectangle "ユーザー集約" <<Aggregate>> #f9f9f9 {
+  class "ユーザー (User)" as User {
     メールアドレス: hogehoge@fukuchiyama.ac.jp
+    パスワード: (ハッシュ化済み)
     ロール: 一般 / 管理者
   }
-}
-
-rectangle "プロフィール集約" <<Aggregate>> #f9f9f9 {
   class "プロフィール (Profile)" as Prof {
     ユーザー名: なかどん
     アイコンURL: https://...
@@ -24,15 +22,12 @@ rectangle "プロフィール集約" <<Aggregate>> #f9f9f9 {
 }
 
 ' 関連
-Acc "1" *-- "1" Prof : プロフィールを保持する >
+User "1" *-- "1" Prof : プロフィールを保持する >
 Prof "0..*" --> "1" Univ : 所属先を参照する >
 
-note bottom of Acc
-  - 認証に成功した時のみアカウントが生成される
-end note
-
-note bottom of Prof
-  - 大学名は所属ドメインから自動設定される
+note bottom of User
+  - 認証に成功した時のみユーザーが生成される
+  - 大学名はメールアドレスのドメインから自動設定される
   - 所属大学は後から変更できない
 end note
 
