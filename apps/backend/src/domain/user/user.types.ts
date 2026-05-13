@@ -1,5 +1,6 @@
 // Identifier
 export type UserId = string & { readonly __brand: "UserId" };
+export type ProfileId = string & { readonly __brand: "ProfileId" };
 
 // User
 export type UserRole = "admin" | "general";
