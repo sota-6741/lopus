@@ -1,7 +1,7 @@
 import { EmailAddress } from "./value-objects/email-address.value-object";
 import { Password } from "./value-objects/password.value-object";
 import { Profile } from "./profile.entity";
-import { UserId, UserRole, UniversityId } from "./user.types";
+import { UserId, ProfileId, UserRole, UniversityId } from "./user.types";
 
 export class User {
   private constructor(
@@ -11,9 +11,6 @@ export class User {
     private readonly _role: UserRole,
     private readonly _profile: Profile,
     private readonly _emailVerified: boolean,
-    private readonly _createdAt: Date,
-    private readonly _updatedAt: Date,
-    private readonly _lastLoginAt?: Date,
   ) {}
 
   /**
@@ -23,19 +20,17 @@ export class User {
     id: UserId,
     email: EmailAddress,
     password: Password,
+    profileId: ProfileId,
     universityId: UniversityId,
     userName: string,
   ): User {
-    const now = new Date();
     return new User(
       id,
       email,
       password,
       "general",
-      Profile.create(universityId, userName),
+      Profile.create(profileId, universityId, userName),
       false,
-      now,
-      now,
     );
   }
 
@@ -49,21 +44,8 @@ export class User {
     role: UserRole,
     profile: Profile,
     emailVerified: boolean,
-    createdAt: Date,
-    updatedAt: Date,
-    lastLoginAt?: Date,
   ): User {
-    return new User(
-      id,
-      email,
-      password,
-      role,
-      profile,
-      emailVerified,
-      createdAt,
-      updatedAt,
-      lastLoginAt,
-    );
+    return new User(id, email, password, role, profile, emailVerified);
   }
 
   // Getters
@@ -89,17 +71,5 @@ export class User {
 
   get emailVerified(): boolean {
     return this._emailVerified;
-  }
-
-  get createdAt(): Date {
-    return this._createdAt;
-  }
-
-  get updatedAt(): Date {
-    return this._updatedAt;
-  }
-
-  get lastLoginAt(): Date | undefined {
-    return this._lastLoginAt;
   }
 }
