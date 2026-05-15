@@ -1,7 +1,7 @@
 import { EmailAddress } from "./value-objects/email-address.value-object";
 import { Password } from "./value-objects/password.value-object";
 import { Profile } from "./profile.entity";
-import { UserId, ProfileId, UserRole, UniversityId } from "./user.types";
+import { UserId, ProfileId, UserRole } from "./user.types";
 
 export class User {
   private constructor(
@@ -20,16 +20,14 @@ export class User {
     id: UserId,
     email: EmailAddress,
     password: Password,
-    profileId: ProfileId,
-    universityId: UniversityId,
-    userName: string,
+    profile: Profile,
   ): User {
     return new User(
       id,
       email,
       password,
       "general",
-      Profile.create(profileId, universityId, userName),
+      profile,
       false,
     );
   }
