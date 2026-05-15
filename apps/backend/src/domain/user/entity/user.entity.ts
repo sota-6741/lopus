@@ -1,7 +1,7 @@
-import { EmailAddress } from "./value-objects/email-address.value-object";
-import { Password } from "./value-objects/password.value-object";
+import { EmailAddress } from "../value-objects/email-address.value-object";
+import { Password } from "../value-objects/password.value-object";
 import { Profile } from "./profile.entity";
-import { UserId, ProfileId, UserRole } from "./user.types";
+import { UserId, UserRole, HashedPassword } from "../user.types";
 
 export class User {
   private constructor(
@@ -22,14 +22,7 @@ export class User {
     password: Password,
     profile: Profile,
   ): User {
-    return new User(
-      id,
-      email,
-      password,
-      "general",
-      profile,
-      false,
-    );
+    return new User(id, email, password, "general", profile, false);
   }
 
   /**
@@ -38,12 +31,19 @@ export class User {
   public static fromPersistence(
     id: UserId,
     email: EmailAddress,
-    password: Password,
+    hashedPassword: HashedPassword,
     role: UserRole,
     profile: Profile,
     emailVerified: boolean,
   ): User {
-    return new User(id, email, password, role, profile, emailVerified);
+    return new User(
+      id,
+      email,
+      Password.createFromHash(hashedPassword),
+      role,
+      profile,
+      emailVerified,
+    );
   }
 
   // Getters
