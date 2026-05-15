@@ -1,5 +1,6 @@
 import { ValidationDomainException } from "../shared/domain.exception";
-import { UserName, UniversityId, IconUrl, ProfileId } from "./user.types";
+import { UserName, IconUrl, ProfileId } from "./user.types";
+import { UniversityId } from "../university/university.types.ts";
 
 export class Profile {
   private static readonly MIN_NAME_LENGTH = 4;
@@ -12,6 +13,24 @@ export class Profile {
     private readonly _universityId: UniversityId,
     private readonly _iconUrl?: IconUrl,
   ) {}
+
+private static validate(userName: string): void {
+    if (
+      userName.length < this.MIN_NAME_LENGTH ||
+      userName.length > this.MAX_NAME_LENGTH
+    ) {
+      throw new ValidationDomainException(
+        `ユーザー名は${this.MIN_NAME_LENGTH}〜${this.MAX_NAME_LENGTH}文字以内で入力してください`,
+      );
+    }
+
+    if (!this.NAME_PATTERN.test(userName)) {
+      throw new ValidationDomainException(
+        "ユーザー名は英数字とアンダースコア（_）のみ使用できます",
+      );
+    }
+  }
+
 
   /**
    * 新規作成
@@ -39,23 +58,6 @@ export class Profile {
     iconUrl?: IconUrl,
   ): Profile {
     return new Profile(profileId, userName, universityId, iconUrl);
-  }
-
-  private static validate(userName: string): void {
-    if (
-      userName.length < this.MIN_NAME_LENGTH ||
-      userName.length > this.MAX_NAME_LENGTH
-    ) {
-      throw new ValidationDomainException(
-        `ユーザー名は${this.MIN_NAME_LENGTH}〜${this.MAX_NAME_LENGTH}文字以内で入力してください`,
-      );
-    }
-
-    if (!this.NAME_PATTERN.test(userName)) {
-      throw new ValidationDomainException(
-        "ユーザー名は英数字とアンダースコア（_）のみ使用できます",
-      );
-    }
   }
 
   // Getters
