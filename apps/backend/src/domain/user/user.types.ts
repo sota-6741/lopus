@@ -1,6 +1,9 @@
+import { IIdentifier } from "../shared/shared.types";
+
 // Identifier
-export type UserId = string & { readonly __brand: "UserId" };
-export type ProfileId = string & { readonly __brand: "ProfileId" };
+export type UserId = string & IIdentifier & { readonly __brand: "UserId" };
+export type ProfileId = string &
+  IIdentifier & { readonly __brand: "ProfileId" };
 
 // User
 export type UserRole = "admin" | "general";
@@ -9,8 +12,5 @@ export type UserRole = "admin" | "general";
 export type UserName = string & { readonly __brand: "UserName" };
 export type IconUrl = string & { readonly __brand: "IconUrl" };
 
-// University (Reference)
-export type UniversityId = string & { readonly __brand: "UniversityId" };
-
 // Password
-export type HashedString = string & { readonly __brand: "HashedString" };
+export type HashedPassword = string & { readonly __brand: "HashedPassword" };
