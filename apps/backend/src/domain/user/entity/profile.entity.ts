@@ -1,6 +1,6 @@
-import { ValidationDomainException } from "../shared/domain.exception";
-import { UserName, IconUrl, ProfileId } from "./user.types";
-import { UniversityId } from "../university/university.types.ts";
+import { ValidationDomainException } from "../../shared/error/domain.exception";
+import { UserName, IconUrl, ProfileId } from "../user.types";
+import { UniversityId } from "../../university/university.types";
 
 export class Profile {
   private static readonly MIN_NAME_LENGTH = 4;
@@ -14,7 +14,7 @@ export class Profile {
     private readonly _iconUrl?: IconUrl,
   ) {}
 
-private static validate(userName: string): void {
+  private static validate(userName: string): void {
     if (
       userName.length < this.MIN_NAME_LENGTH ||
       userName.length > this.MAX_NAME_LENGTH
@@ -31,7 +31,6 @@ private static validate(userName: string): void {
     }
   }
 
-
   /**
    * 新規作成
    */
@@ -44,7 +43,7 @@ private static validate(userName: string): void {
     return new Profile(
       profileId as ProfileId,
       userName as UserName,
-      universityId,
+      universityId as UniversityId,
     );
   }
 
