@@ -10,10 +10,12 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "hono": "^4.12.18"
+    "hono": "^4.12.18",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260515.1",
+    "@types/uuid": "^11.0.0",
     "wrangler": "^4.4.0"
   }
 }
-
