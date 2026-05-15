@@ -1,0 +1,2 @@
+// Identifier
+export interface IIdentifier {}
