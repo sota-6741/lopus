@@ -1,6 +1,5 @@
-import { ValidationDomainException } from "../../shared/domain.exception";
-
-import { HashedString } from "../user.types";
+import { ValidationDomainException } from "../../shared/error/domain.exception";
+import { HashedPassword } from "../user.types";
 
 export class Password {
   private static readonly MIN_LENGTH = 8;
@@ -28,9 +27,9 @@ export class Password {
   }
 
   /**
-   * DB再構築用: ハッシュ化済みの値から作成(バリデーションなし)
+   * DB再構築用: ハッシュ化済みの値から作成
    */
-  public static createFromHash(hashedValue: HashedString): Password {
+  public static createFromHash(hashedValue: HashedPassword): Password {
     return new Password(hashedValue, true);
   }
 
