@@ -14,6 +14,7 @@ rectangle "ユーザー集約" <<Aggregate>> #f9f9f9 {
     メールアドレス: hogehoge@fukuchiyama.ac.jp
     パスワード: (ハッシュ化済み)
     ロール: 一般 / 管理者
+    メール認証済みフラグ: boolean
   }
   class "プロフィール (Profile)" as Prof {
     ユーザー名: なかどん
@@ -21,14 +22,23 @@ rectangle "ユーザー集約" <<Aggregate>> #f9f9f9 {
   }
 }
 
+rectangle "メール認証集約" <<Aggregate>> #f9f9f9 {
+  class "メール認証トークン (EmailVerificationToken)" as Token {
+    トークン値: UUID
+    ユーザーID: UserId
+    有効期限: DateTime
+  }
+}
+
 ' 関連
 User "1" *-- "1" Prof : プロフィールを保持する >
 Prof "0..*" --> "1" Univ : 所属先を参照する >
+Token "0..1" --> "1" User : ユーザーを認証対象とする(ID参照) >
 
-note bottom of User
-  - 認証に成功した時のみユーザーが生成される
-  - 大学名はメールアドレスのドメインから自動設定される
-  - 所属大学は後から変更できない
+note bottom of Token
+  - 新規登録時に生成される
+  - 有効期限（30分など）を持つ
+  - 認証完了後、または再発行時に削除される
 end note
 
 @enduml
