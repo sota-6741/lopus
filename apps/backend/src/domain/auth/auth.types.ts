@@ -1,11 +1,7 @@
-/**
- * 認証用トークン文字列（Branded Type）
- */
+// 認証用トークン文字列
 export type VerificationToken = string & {
   readonly __brand: "VerificationToken";
 };
 
-/**
- * 有効期限（Dateのラッパー、または単なるDateとして扱うBranded Type）
- */
+// 認証トークン期限
 export type TokenExpiresAt = Date & { readonly __brand: "TokenExpiresAt" };

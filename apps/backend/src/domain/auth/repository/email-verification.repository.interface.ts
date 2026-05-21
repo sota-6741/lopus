@@ -2,6 +2,7 @@ import { BaseRepository } from "../../shared/repository/_base.repository";
 
 import { EmailVerificationToken } from "../entity/email-verification-token.entity";
 import { VerificationToken } from "../auth.types";
+import { UserId } from "../../user/user.types";
 
 export interface EmailVerificationRepository extends BaseRepository {
   /**
@@ -17,5 +18,5 @@ export interface EmailVerificationRepository extends BaseRepository {
   /**
    * 特定のユーザーに関連するトークンを削除する（再送時や有効化後用）
    */
-  deleteByUserId(userId: string): Promise<void>;
+  deleteByUserId(userId: UserId): Promise<void>;
 }
