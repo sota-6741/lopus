@@ -49,18 +49,18 @@ export class UserRegisterUsecase {
 
   /**
    * ユーザー登録フロー
-   * 1. ValueObject生成
-   * 2. パスワードハッシュ化
+   * 1) ValueObject生成
+   * 2) パスワードハッシュ化
    * トランザクション開始
-   * 3. 大学ドメインの存在確認
-   * 4. メールアドレスの存在確認
-   * 5. ID生成 (User, Profile)
-   * 6. エンティティ生成 (User, Profile)
-   * 7. 認証トークン生成
-   * 8. エンティティ生成 (Token)
-   * 9. 永続化 (User, Token)
+   * 3) 大学ドメインの存在確認
+   * 4) メールアドレスの存在確認
+   * 5) ID生成
+   * 6) エンティティ生成
+   * 7) 認証トークン生成
+   * 8) エンティティ生成
+   * 9) 永続化
    * トランザクション終了
-   * 10. 本人確認メール送信
+   * 10) 本人確認メール送信
    */
 
   public async execute(input: UserRegisterInput): Promise<UserRegisterOutput> {

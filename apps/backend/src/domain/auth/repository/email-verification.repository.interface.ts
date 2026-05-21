@@ -16,7 +16,7 @@ export interface EmailVerificationRepository extends BaseRepository {
   findByToken(token: VerificationToken): Promise<EmailVerificationToken | null>;
 
   /**
-   * 特定のユーザーに関連するトークンを削除する（再送時や有効化後用）
+   * 特定のユーザーに関連するトークンを削除する
    */
   deleteByUserId(userId: UserId): Promise<void>;
 }
